@@ -40,16 +40,15 @@ number_plate_model = YOLO(r"C:\Users\Vinay Edula\Downloads\Vehicle number result
 # Set up Tesseract OCR
 pytesseract.pytesseract.tesseract_cmd = r"path/to/tesseract_executable"  # Update with the path to your Tesseract OCR executable
 
-# Set up input image and output directories
-input_dir = r"C:\Users\Vinay Edula\Downloads\imgs\images"  # Directory containing input images
 output_dir = r"C:\Users\Vinay Edula\Downloads\out"  # Directory to save the output images
+# Set up video capture
+video_capture = cv2.VideoCapture(0)  # Use 0 for the default camera or provide the desired camera index
 
-# Process each image in the input directory
-for image_file in os.listdir(input_dir):
-    image_path = os.path.join(input_dir, image_file)
-    frame = cv2.imread(image_path)
+while True:
+    # Capture frame-by-frame
+    ret, frame = video_capture.read()
+    # Process frame
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
     # Detect person on a bike
     person_bike_results = person_bike_model.predict(img)
 
